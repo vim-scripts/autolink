@@ -1,0 +1,57 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=4023
+
+This vim plugin automatically finds and inserts URLs for links in Markdown and
+ReST documents.
+
+## Search for URLs
+
+autolink.vim uses the [Blekko][] search engine API to find URLs matching the
+link IDs in [Markdown][] and [reStructuredText][] reference-style links. It
+automatically inserts the first link found.
+
+[Markdown]: http://daringfireball.net/projects/markdown/
+[reStructuredText]: http://docutils.sourceforge.net/rst.html
+[Blekko]: http://blekko.com/
+
+For example, say you have this document:
+
+    I think [Markdown][] is really great.
+
+    [Markdown]: need a URL for this
+
+With your cursor on the last line, you can type ``<leader>ac`` (for
+*auto-complete* link) and the last line will become:
+
+    [Markdown]: http://daringfireball.net/projects/markdown/
+
+Behind the scenes, the plugin searches on Blekko for the word "Markdown" and
+inserts the first result's URL, a reasonable guess for a relevant link on the
+subject, in the appropriate place. This also works in ReST documents on
+hyperlink target lines like `.. _Markdown: link goes here`.
+
+## Create Link Definitions
+
+This plugin can help you insert the markup for reference-style links. For
+example, suppose you have just typed this paragraph:
+
+    I prefer the [vim text editor][vim].
+
+Type ``<leader>am`` (for *auto-make* link) to add a definition for the link
+below the current paragraph:
+
+    I prefer the [vim text editor][vim].
+
+    [vim]: 
+
+This also works in ReST for reference-style links like `` `foo`_``.
+
+The plugin is careful to insert newlines between text paragraphs and blocks of
+link references to make your document look nice.
+
+## All Together Now
+
+To insert and complete a link definition in one fell swoop, use ``<leader>al``
+(for *auto-link*, the name of this plugin). This will add a reference to your
+link after the current paragraph, fill it out with a search result, and then
+jump back to your current cursor position to let you keep writing. (If your leader is `\`, then it's like typing ``mq\am\ac`q``.)
+
